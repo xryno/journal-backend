@@ -1,22 +1,19 @@
 version: 0.2
+
 phases:
-  install:
-    runtime-versions:
-      nodejs: 16
-    commands:
-      - npm install
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
+      - npm install
   build:
     commands:
-      - echo Build started on `date`
-    post_build:
+      - echo "Zipping package"
+      - cd node_modules
+      - zip -r9 ../deploy.zip .
+      - cd ..
+      - zip -g deploy.zip **/*
+      - echo "Build completed"
+
+   post_build:
       commands:
-        - echo Build completed on `date`  
-artifacts:
-  type: zip
-  files:
-    - package.json
-    - package-lock.json
-    - "build/**/*"
+        - aws lambda update-function-code --function-name journal-login --zip-file fileb://deploy.zip
