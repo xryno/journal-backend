@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install
+  build:
+    commands:
+      - echo "Zipping package"
+       - mkdir build-output
+      - cp -R folder1/myfile.js build-output
+      - mkdir -p build-output/node_modules
+      - cp -R node_modules/* build-output/node_modules
+      - cd build-output/
+      - zip -qr build-output.zip ./*
+      - mv build-output.zip ../
+      - echo "Build completed"
+artifacts:
+  files:
+    - build-output.zip
+  
+  post_build:
+    commands:
+      - aws lambda update-function-code --function-name journal login --zip-file fileb://build-output.zip
