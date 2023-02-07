@@ -13,7 +13,6 @@ phases:
       - cd ..
       - zip -g deploy.zip **/*
       - echo "Build completed"
-
    post_build:
       commands:
         - aws lambda update-function-code --function-name journal-login --zip-file fileb://deploy.zip
