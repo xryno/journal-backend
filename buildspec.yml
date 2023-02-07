@@ -9,7 +9,7 @@ phases:
     commands:
       - echo "Zipping package"
       - mkdir build-output
-      - cp -R journal-backend/index.js build-output
+      - cp -R ../ build-output
       - mkdir -p build-output/node_modules
       - cp -R node_modules/* build-output/node_modules
       - cd build-output/
