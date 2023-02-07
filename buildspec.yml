@@ -8,8 +8,8 @@ phases:
   build:
     commands:
       - echo "Zipping package"
-       - mkdir build-output
-      - cp -R folder1/myfile.js build-output
+      - mkdir build-output
+      - cp -R journal-backend/index.js build-output
       - mkdir -p build-output/node_modules
       - cp -R node_modules/* build-output/node_modules
       - cd build-output/
@@ -18,7 +18,7 @@ phases:
       - echo "Build completed"
 artifacts:
   files:
-    - build-output.zip
+      - build-output.zip
   
   post_build:
     commands:
