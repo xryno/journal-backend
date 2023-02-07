@@ -9,7 +9,7 @@ phases:
     commands:
       - echo "Zipping package"
       - cd node_modules
-      - zip -r9 ../deploy.zip 
+      - zip -r9 ../deploy.zip .
       - cd ..
       - zip -g deploy.zip **/*
   post_build:
