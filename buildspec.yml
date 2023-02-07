@@ -9,7 +9,7 @@ phases:
     commands:
       - echo "Zipping package"
       - mkdir build-output
-      - cp -R / build-output
+      - cp -R journal-backend build-output
       - mkdir -p build-output/node_modules
       - cp -R node_modules/* build-output/node_modules
       - cd build-output/
@@ -20,6 +20,6 @@ artifacts:
   files:
       - build-output.zip
   
-  post_build:
+post_build:
     commands:
       - aws lambda update-function-code --function-name journal login --zip-file fileb://build-output.zip
