@@ -1,9 +1,8 @@
-version: 0.2
-
 phases:
-  pre_build:
+  install:
+    runtime-versions:
+      nodejs: 16
     commands:
-      - echo Installing source NPM dependencies...
       - npm install
   build:
     commands:
@@ -14,5 +13,5 @@ phases:
       - zip -g deploy.zip **/*
       - echo "Build completed"
    post_build:
-      commands:
+     commands:
         - aws lambda update-function-code --function-name journal-login --zip-file fileb://deploy.zip
