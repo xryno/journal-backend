@@ -1,25 +1,47 @@
-version: 0.2
+# version: 0.2
 
+# phases:
+#   pre_build:
+#     commands:
+#       - echo Installing source NPM dependencies...
+#       - npm install
+#   build:
+#     commands:
+#       - echo "Zipping package"
+#       - mkdir build-output
+#       - cp -R journal-backend build-output
+#       - mkdir -p build-output/node_modules
+#       - cp -R node_modules/* build-output/node_modules
+#       - cd build-output/
+#       - zip -qr build-output.zip ./*
+#       - mv build-output.zip ../
+#       - echo "Build completed"
+# artifacts:
+#   files:
+#       - build-output.zip
+  
+# post_build:
+#     commands:
+#       - aws lambda update-function-code --function-name journal login --zip-file fileb://build-output.zip
+version: 0.2
 phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+    commands:
+      - npm install
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
-      - npm install
   build:
     commands:
-      - echo "Zipping package"
-      - mkdir build-output
-      - cp -R journal-backend build-output
-      - mkdir -p build-output/node_modules
-      - cp -R node_modules/* build-output/node_modules
-      - cd build-output/
-      - zip -qr build-output.zip ./*
-      - mv build-output.zip ../
-      - echo "Build completed"
+      - echo Build started on `date`
+    post_build:
+      commands:
+        - echo Build completed on `date`  
 artifacts:
+  type: zip
   files:
-      - build-output.zip
-  
-post_build:
-    commands:
-      - aws lambda update-function-code --function-name journal login --zip-file fileb://build-output.zip
+    - package.json
+    - package-lock.json
+    - "build/**/*"
