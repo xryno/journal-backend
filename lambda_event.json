@@ -1,0 +1,5 @@
+{
+    "body": "{\"name\": \"bob\",\"email\": \"bob@email.com\"}",
+    "path": "/register",
+    "httpMethod": "POST"
+}

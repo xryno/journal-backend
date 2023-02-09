@@ -1,0 +1,4 @@
+node_modules
+.env
+former2template.yml
+dynamoconfig.txt
