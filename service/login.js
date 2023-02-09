@@ -5,10 +5,13 @@ AWS.config.update({
 });
 
 const settings = {
-    region: 'eu-west-2',
-    endpoint: new AWS.Endpoint(process.env.LOCAL_ENDPOINT)
+    region: 'eu-west-2'
 }
-const dynamoDB = new AWS.DynamoDB.DocumentClient(process.env.AWS_SAM_LOCAL && settings);
+
+if (process.env.AWS_SAM_LOCAL) {
+    settings.endpoint = new AWS.Endpoint(process.env.LOCAL_ENDPOINT)
+}
+const dynamoDB = new AWS.DynamoDB.DocumentClient(settings);
 
 // const dynamoDB = new AWS.DynamoDB.DocumentClient();
 const userTable = 'journal-users';
