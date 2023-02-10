@@ -1,18 +1,19 @@
-require('dotenv').config()
+// require('dotenv').config()
 const AWS = require('aws-sdk');
+const DBClient = require('../utils/DBClient')
 AWS.config.update({
     region: 'eu-west-2'
 })
 
-const settings = {
-    region: 'eu-west-2'
-}
+// const settings = {
+//     region: 'eu-west-2'
+// }
 
-if (process.env.AWS_SAM_LOCAL) {
-    settings.endpoint = new AWS.Endpoint(process.env.LOCAL_ENDPOINT)
-}
+// if (process.env.AWS_SAM_LOCAL) {
+//     settings.endpoint = new AWS.Endpoint(process.env.LOCAL_ENDPOINT)
+// }
 
-const dynamoDB = new AWS.DynamoDB.DocumentClient(settings);
+const dynamoDB = DBClient.client
 const userTable = 'journal-users';
 const common = require('../utils/common')
 const bcrypt = require('bcryptjs')
