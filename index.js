@@ -14,7 +14,7 @@ exports.handler = async (event) => {
     
     switch(true){
         case event.httpMethod === 'GET' && event.path === '/status':
-            response = common.buildResponse(200);
+            response = common.httpResponse(200);
             break;
          case event.httpMethod === 'POST' && event.path === '/register':
             const registerBody = JSON.parse(event.body)

@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:db": "docker run --network=lambda-local --name dynamo -p 8000:8000 amazon/dynamodb-local",
+    "addTables": "aws dynamodb create-table --table-name journal-users --attribute-definitions AttributeName=email,AttributeType=S --key-schema AttributeName=email,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 --endpoint-url=http://127.0.0.1:8000 && aws dynamodb create-table --table-name journal-entries --attribute-definitions AttributeName=entryId,AttributeType=S --key-schema AttributeName=entryId,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 --endpoint-url=http://127.0.0.1:8000"   
   },
   "author": "",
   "license": "ISC",
