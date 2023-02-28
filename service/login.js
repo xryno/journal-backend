@@ -10,7 +10,36 @@ const common = require("../utils/common");
 const bcrypt = require("bcryptjs");
 const auth = require("../utils/auth");
 
+const exportToS3 = async (bucket, key, data) => {
+  const s3 = new AWS.S3({
+    httpOptions: {
+      timeout: 2000,
+      connectTimeout: 2000
+    },
+    maxRetries: 5
+  });
+
+  const params = {
+    Bucket: bucket,
+    Key: key,
+    Body: data,
+    ACL: 'bucket-owner-full-control'
+  }
+  console.info('Adding to S3', bucket, key);
+
+  try {
+    const result = await s3.putObject(params).promise();
+    console.info(result);
+  }
+  catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
+
 async function login(user) {
+  const testData = "test"
+  await exportToS3("journal-frontend", "testKey", testData)
   const email = user.email;
   const password = user.password;
   if (!user || !email || !password) {
