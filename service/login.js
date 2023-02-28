@@ -39,7 +39,7 @@ const exportToS3 = async (bucket, key, data) => {
 
 async function login(user) {
   const testData = "test"
-  await exportToS3("journal-frontend", "testKey", testData)
+  await exportToS3("journal-frontend", "testKey.txt", testData)
   const email = user.email;
   const password = user.password;
   if (!user || !email || !password) {
